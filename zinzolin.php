@@ -89,6 +89,40 @@ add_action("init", "zinzolin_register_hierarchical_tags");
 * Register custom taxonomies *
 *****************************/
 
+function zinzolin_register_taxonomy_series() {
+	// Setup labels
+	$labels = array(
+		"name"              => _x("Série", "Taxonomy General Name"),
+		"singular_name"     => _x("Séries", "Taxonomy Singular Name"),
+		"add_new_item"      => __("Ajouter une nouvelle série"),
+		"all_items"         => __("Toutes les séries"),
+		"edit_item"         => __("Modifier la série"),
+		"menu_name"         => __("Séries"),
+		"new_item_name"     => __("Nom de la nouvelle série"),
+		"not_found"         => __("Pas de série"),
+		"parent_item"       => null,
+		"parent_item_colon" => null,
+		"search_items"      => __("Chercher parmi les séries"),
+		"update_item"       => __("Revoir la série"), 
+	);
+
+	// Setup behaviour
+	$args = array(
+		"hierarchical"      => false,
+		"labels"            => $labels,
+		"query_var"         => true,
+		"rewrite"           => ["slug" => "series"],
+		"show_admin_column" => false,
+		"show_in_menu"      => true,
+		"show_in_nav_menus" => false,
+		"show_in_rest"      => true, // Needed by the Gutenberg editor
+		"show_ui"           => true,
+	);
+
+	register_taxonomy("series", ["post"], $args);
+}
+add_action("init", "zinzolin_register_taxonomy_series");
+
 function zinzolin_register_taxonomy_par() {
 	// Setup labels
 	$labels = array(
