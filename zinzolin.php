@@ -39,7 +39,7 @@ function zinzolin_register_hierarchical_tags() {
 	global $wp_rewrite;
 	$rewrite = array(
 		"ep_mask"      => EP_TAGS,
-		"hierarchical" => false,
+		"hierarchical" => true, // Needed to get the parent in the permalink (eg. "/ecrire/ecriture")
 		"slug"         => get_option("tag_base") ? get_option("tag_base") : "sur",
 		"with_front"   => ! get_option("tag_base") || $wp_rewrite->using_index_permalinks(),
 	);
@@ -212,10 +212,10 @@ function zinzolin_register_taxonomy_genre() {
 
 	// Setup behaviour
 	$args = array(
-		"hierarchical"      => false,
+		"hierarchical"      => true,
 		"labels"            => $labels,
 		"query_var"         => true,
-		"rewrite"           => ["slug" => "genre"],
+		"rewrite"           => array("slug" => "genre", "hierarchical" => true),
 		"show_admin_column" => false,
 		"show_in_menu"      => true,
 		"show_in_nav_menus" => false,
@@ -310,11 +310,11 @@ function zinzolin_remove_archives_title($title) {
 	} elseif (is_author()) {
 		$title = get_the_author();
 	} elseif (is_year()) {
-        $title = get_the_date(_x('Y'));
-    } elseif (is_post_type_archive()) {
-        $title = post_type_archive_title("", false);
-    }
-    
+		$title = get_the_date(_x('Y'));
+	} elseif (is_post_type_archive()) {
+		$title = post_type_archive_title("", false);
+	}
+
 	return $title;
 }
 add_filter("get_the_archive_title", "zinzolin_remove_archives_title");
