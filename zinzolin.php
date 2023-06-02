@@ -24,6 +24,7 @@ function zinzolin_remove_category_base($string, $type) {
 		// Will NOT work with sub-categories
 		return str_replace("/category/", "/", $string);
 	}
+	
 	return $string;
 }
 add_filter("user_trailingslashit", "zinzolin_remove_category_base", 100, 2);
@@ -296,3 +297,24 @@ function zinzolin_register_taxonomy_de() {
 	register_taxonomy("de", ["post"], $args);
 }
 add_action("init", "zinzolin_register_taxonomy_de");
+
+/************************
+* Remove archives title *
+************************/
+
+function zinzolin_remove_archives_title($title) {
+	if (is_category()) {
+		$title = single_cat_title("", false);
+	} elseif (is_tag()) {
+		$title = single_tag_title("", false);
+	} elseif (is_author()) {
+		$title = get_the_author();
+	} elseif (is_year()) {
+        $title = get_the_date(_x('Y'));
+    } elseif (is_post_type_archive()) {
+        $title = post_type_archive_title("", false);
+    }
+    
+	return $title;
+}
+add_filter("get_the_archive_title", "zinzolin_remove_archives_title");
