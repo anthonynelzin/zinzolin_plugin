@@ -344,7 +344,7 @@ function zinzolin_remove_archives_title($title) {
 	} elseif (is_author()) {
 		$title = get_the_author();
 	} elseif (is_year()) {
-		$title = get_the_date(_x('Y'));
+		$title = get_the_date(_x("Y"));
 	} elseif (is_post_type_archive()) {
 		$title = post_type_archive_title("", false);
 	}
@@ -352,3 +352,12 @@ function zinzolin_remove_archives_title($title) {
 	return $title;
 }
 add_filter("get_the_archive_title", "zinzolin_remove_archives_title");
+
+/******************
+* Register blocks *
+******************/
+
+function zinzolin_blocks_init() {
+	register_block_type(__DIR__ . "/build/subhead");
+}
+add_action("init", "zinzolin_blocks_init");

@@ -1,0 +1,21 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 2,
+	"name": "zinzolin/subhead",
+	"version": "1.0",
+	"title": "Subhead",
+	"description": "Add a subhead/deck for editorial purposes",
+	"category": "text",
+	"icon": "text",
+	"attributes": {
+		"content": {
+			"type": "string",
+			"source": "html",
+			"selector": ".subhead"
+		}
+	},
+	"textdomain": "zinzolin_plugin",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css"
+}
